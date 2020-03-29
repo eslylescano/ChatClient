@@ -30,6 +30,7 @@ private slots:
 private:
     Ui::Dialog *ui;
     EchoClient *p_EchoClient;
+    bool nameEntered=false;
 };
 
 #endif // DIALOG_H
