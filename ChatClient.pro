@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui websockets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,11 +25,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        echoclient.cpp \
         main.cpp \
         dialog.cpp
 
 HEADERS += \
-        dialog.h
+        dialog.h \
+        echoclient.h
 
 FORMS += \
         dialog.ui
