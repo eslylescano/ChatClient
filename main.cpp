@@ -4,8 +4,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Dialog w;
-    w.show();
     EchoClient client(QUrl(QStringLiteral("ws://chat.biosilico.com/:80")), true);
+    Dialog w(nullptr,&client);
+    w.show();
+
     return a.exec();
 }

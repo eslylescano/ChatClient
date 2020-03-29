@@ -60,12 +60,13 @@ public:
     explicit EchoClient(const QUrl &url, bool debug = false, QObject *parent = nullptr);
 
 Q_SIGNALS:
-
-
+void connected();
+void textMessageReceived(QString message);
 private Q_SLOTS:
     void onConnected();
-    void closed();
+    void onClosed();
     void onTextMessageReceived(QString message);
+    void onSendTextMessage(QString message);
 
 private:
     QWebSocket m_webSocket;

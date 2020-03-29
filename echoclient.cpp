@@ -61,7 +61,7 @@ EchoClient::EchoClient(const QUrl &url, bool debug, QObject *parent) :
     if (m_debug)
         qDebug() << "WebSocket server:" << url;
     connect(&m_webSocket, &QWebSocket::connected, this, &EchoClient::onConnected);
-    connect(&m_webSocket, &QWebSocket::disconnected, this, &EchoClient::closed);
+    connect(&m_webSocket, &QWebSocket::disconnected, this, &EchoClient::onClosed);
     m_webSocket.open(QUrl(url));
 }
 //! [constructor]
@@ -75,20 +75,27 @@ void EchoClient::onConnected()
             this, &EchoClient::onTextMessageReceived);
     m_webSocket.sendTextMessage(QStringLiteral("Esly"));
     m_webSocket.sendTextMessage(QStringLiteral("Hola que tal"));
+    emit connected();
 }
 //! [onConnected]
 
 //! [onTextMessageReceived]
 void EchoClient::onTextMessageReceived(QString message)
 {
+    emit textMessageReceived( message);
     if (m_debug)
         qDebug() << "Message received:" << message;
     //m_webSocket.close();
 }
+
+void EchoClient::onSendTextMessage(QString message)
+{
+    m_webSocket.sendTextMessage(message);
+}
 //! [onTextMessageReceived]
 
 //! [closed]
-void EchoClient::closed()
+void EchoClient::onClosed()
 {
     if (m_debug)
         qDebug() << "WebSocket closed";
